@@ -1,20 +1,27 @@
 <?xml version="1.0"?>
 <launch>
+  <!-- log日志文件 -->
   <env name="ROSCONSOLE_CONFIG_FILE" value="$(find vrx_gazebo)/config/custom_rosconsole.conf"/>
-  <!-- Gazebo world to load -->
+  <!-- 加载Gazobo世界文件 -->
   <arg name="world" default="$(find vrx_2019)/worlds/example_course.world" />
   <!-- If true, run gazebo GUI -->
+  <!--启动Gazebo-->
   <arg name="gui" default="true" />
   <!-- If true, run gazebo in verbose mode -->
+  <!--复杂模式-->
   <arg name="verbose" default="false"/>
   <!-- If true, start in paused state -->
+  <!--暂停状态-->
   <arg name="paused"  default="false"/>
   <!-- Set various other gazebo arguments-->
+  <!--设置各种其他gazebo参数-->
   <arg name="extra_gazebo_args" default=""/>
   <!-- Start in a default namespace -->
+  <!--在一个默认名字空间开始-->
   <arg name="namespace" default="wamv"/>
 
   <!-- Initial USV location and attitude-->
+  <!--初始化USV位置和姿态-->
   <arg name="x" default="158" />
   <arg name="y" default="108" />
   <arg name="z" default="0.1" />
@@ -23,6 +30,7 @@
   <arg name="Y" default="-2.76" />
 
   <!-- If true, show non-competition ROS topics (/gazebo/model_states, /vrx/debug/wind/direction, etc.)-->
+  <!--显示非竞争的ROS主题-->
   <arg name="non_competition_mode" default="true"/>
   <arg name="enable_ros_network" value="$(arg non_competition_mode)"/>
   <env name="VRX_DEBUG" value="$(arg non_competition_mode)"/>
@@ -32,16 +40,27 @@
        H = stern trusters on each hull
        T = H with a lateral thruster
        X = "holonomic" configuration -->
+  <!--允许用户指定的推进器配置
+      H 两个推进器在船的尾部
+      T 带有附加横向/弓形推进器的差动推力
+      X 全息推进器配置，带四个推进器-->
   <arg name="thrust_config" default="H" />
 
   <!-- Do you want to enable sensors? -->
+  <!--是否要启用传感器-->
   <arg name="camera_enabled"       default="false" />
+  <!--相机-->
   <arg name="gps_enabled"          default="false" />
+  <!--GPS-->
   <arg name="imu_enabled"          default="false" />
+  <!--IMU-->
   <arg name="lidar_enabled"        default="false" />
+  <!--雷达-->
   <arg name="ground_truth_enabled" default="false" />
+  <!--地面实况-->
 
   <!-- Start Gazebo with the world file -->
+  <!--带世界文件开始Gazebo-->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name"   value="$(arg world)"/>
     <arg name="verbose"      value="$(arg verbose)"/>

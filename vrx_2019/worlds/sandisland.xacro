@@ -1,48 +1,73 @@
 <?xml version="1.0" ?>
 <!-- Macro to insert the sandisland into the world -->
+<!-- 将沙岛插入世界的宏 -->
 <world xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="sandisland">
+    <!--场景设置-->
     <scene>
+      <!--天空-->
       <sky>
+        <!--云-->
         <clouds>
           <speed>12</speed>
         </clouds>
       </sky>
+      <!--地面-->
       <grid>0</grid>
+      <!--原点指示器-->
       <origin_visual>0</origin_visual>
     </scene>
     <!-- Estimated latitude/longitude of sandisland from satellite imagery -->
+    <!--根据卫星图像估计沙岛的纬度/经度-->
+
+    <!--球面坐标-->
     <spherical_coordinates>
+      <!--大地坐标系WGS84-->
       <surface_model>EARTH_WGS84</surface_model>
+      <!--世界框架方向东北坐标系-->
       <world_frame_orientation>ENU</world_frame_orientation>
+      <!--纬度-->
       <latitude_deg>21.30996</latitude_deg>
+      <!--经度-->
       <longitude_deg>-157.8901</longitude_deg>
+      <!--高度-->
       <elevation>0.0</elevation>
       <!-- For legacy gazebo reasons, need to rotate -->
+      <!--由于Gazebo遗留问题， 需要旋转-->
       <!--<heading_deg>180</heading_deg>-->
+      <!--航向角-->
     </spherical_coordinates>
 
     <!-- A global light source -->
+    <!--全球光源-->
     <include>
       <uri>model://sun</uri>
     </include>
 
+    <!--高摆聚焦相机-->
     <gui fullscreen='0'>
+      <!--使用者相机-->
       <camera name='user_camera'>
+        <!--相机的位置-->
         <pose frame=''>175.544 123.61 4.70958 0 0.168 -2.40718</pose>
+        <!--轨道控制-->
         <view_controller>orbit</view_controller>
       </camera>
       <!--<plugin name="GUITaskWidget" filename="libgui_task_widget.so"/>-->
     </gui>
 
     <include>
+    
       <!-- Note - the pose tag doesn't seem to work for heightmaps, so you need
       to go into the model file to change the altitutde/height!-->
+      <!--注意-姿势标记似乎不适用于高度贴图，因此您需要进入模型文件以更改高度/高度！-->
       <pose> 0 0 0 0 0 0 </pose>
       <uri>model://sandisland</uri>
     </include>
 
     <!-- The posts for securing the WAM-V -->
+    <!--用于固定WAM-V的立柱-->
+
     <include>
       <name>post_0</name>
       <pose>169.22 112.06 0.47 0.046 -0.157 0</pose>
@@ -60,12 +85,16 @@
     </include>
 
     <!-- Antenna for communication with the WAM-V -->
+    <!--用于与WAM-V通信的天线-->
+
     <include>
       <pose>175.69 114.29 1.37 0 0 2.00</pose>
       <uri>model://antenna</uri>
     </include>
 
     <!-- ground station tents -->
+    <!--地面站帐篷-->
+
     <include>
       <name>ground_station_0</name>
       <pose>177.61 117.20 1.55 0 0 3.54</pose>

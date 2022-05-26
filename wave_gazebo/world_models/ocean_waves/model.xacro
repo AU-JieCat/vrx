@@ -31,30 +31,51 @@
   <model name='ocean_waves'>
     <static>true</static>
     <plugin name="wavefield_plugin" filename="libWavefieldModelPlugin.so">
+      <!--静止-->
       <static>false</static>
+      <!--更新频率-->
       <update_rate>30</update_rate>
+      <!--区域大小-->
       <size>1000 1000</size>
+      <!--单元格大小-->
       <cell_count>50 50</cell_count>
+
+      <!--浪-->
       <wave>
+        <!--模型PMS浅水海浪模型-->
 				<model>PMS</model>
+        <!--周期频率w-->
         <period>${period}</period>
+        <!--三个波叠加而成-->
         <number>3</number>
+        <!--等级-->
         <scale>${scale}</scale>
+        <!--振幅A-->
         <gain>${gain}</gain>
+        <!--波方向ki-->
         <direction>${direction_x} ${direction_y}</direction>
-        <angle>${angle}</angle>        
+        <!--相位-->
+        <angle>${angle}</angle> 
+        <!--波长-->       
         <tau>2.0</tau>
+        <!--振幅-->
         <amplitude>0.0</amplitude>  <!-- No effect for the PMS model -->
+        <!--特征-->
         <steepness>0.0</steepness>
       </wave>
     </plugin>
 
     <link name="ocean_waves_link">
       <visual name="ocean_waves_visual">
+
         <plugin name="ocean_waves_visual_plugin" filename="libWavefieldVisualPlugin.so">
+          <!--启动Rtt-->
           <enableRtt>true</enableRtt>
+          <!--噪声-->
           <rttNoise>0.1</rttNoise>
+          <!--折射不透明度-->
           <refractOpacity>0.2</refractOpacity>
+          <!--反射不透明度-->
           <reflectOpacity>0.2</reflectOpacity>
           <wave>
             <model>PMS</model>
@@ -69,22 +90,35 @@
             <steepness>0.0</steepness>
           </wave>
         </plugin>
+
+        <!--几何学-->
         <geometry>
+          <!--网格-->
           <mesh>
+            <!--增益xy z保持不变-->
             <scale>${scale} ${scale} 1</scale>
             <uri>model://ocean_waves/meshes/mesh.dae</uri>
           </mesh>
         </geometry>
+
+        <!--材料-->
         <material>
           <script>
             <uri>model://ocean_waves/materials/scripts/waves.material</uri>
+            <!--PMS-->
             <name>WaveSim/GerstnerWaves</name>
           </script>
         </material>
+
+        <!--激光可视化-->
         <laser_retro>-1</laser_retro>
       </visual>
+
+      <!--海浪下面可视设置-->
       <visual name="ocean_waves_below_visual">
-        <pose>0 0 -0.05 0 0 0</pose>  <!-- Offset to prevent rendering conflict -->
+        <pose>0 0 -0.05 0 0 0</pose>  
+        <!-- Offset to prevent rendering conflict -->
+        <!--偏移以防止渲染冲突-->
         <geometry>
           <mesh>
             <scale>${scale} ${scale} 1</scale>

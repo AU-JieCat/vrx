@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <world xmlns:xacro="http://ros.org/wiki/xacro">
+
   <xacro:macro name="usv_wind_gazebo"
                params="**wind_objs
                          direction:=270
@@ -12,17 +13,28 @@
                          topic_wind_direction:=/vrx/debug/wind/direction
                          " >
     <!--Gazebo Plugin for simulating WAM-V dynamics-->
+    <!--仿真WAM-V动态的Gazebo插件-->
     <plugin name="wind" filename="libusv_gazebo_wind_plugin.so">
       <!-- models to be effected by the wind -->
+      <!--受风影响的模型-->
       <xacro:insert_block name="wind_objs"/>
       <!-- Wind -->
+      <!--风向-->
       <wind_direction>${direction}</wind_direction> <!-- in degrees -->
+      <!--风平均速度-->
       <wind_mean_velocity>${mean_vel}</wind_mean_velocity>
+      <!--风增益常数-->
       <var_wind_gain_constants>${var_gain}</var_wind_gain_constants>
+      <!--风时间常数-->
       <var_wind_time_constants>${var_time}</var_wind_time_constants>
-      <random_seed>${seed}</random_seed> <!-- set to zero/empty to randomize -->
+      <random_seed>${seed}</random_seed> 
+      <!-- set to zero/empty to randomize -->
+      <!--设置为零/空以随机化-->
+      <!--更新频率-->
       <update_rate>${ros_update_rate}</update_rate>
+      <!--风速-->
       <topic_wind_speed>${topic_wind_speed}</topic_wind_speed>
+      <!--风向-->
       <topic_wind_direction>${topic_wind_direction}</topic_wind_direction>
     </plugin>
   </xacro:macro>
