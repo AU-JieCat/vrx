@@ -1,17 +1,29 @@
 <?xml version="1.0"?>
 <!-- Basic WAM-V with gazebo plugins for dynamics -->
+<!-- gazebo 动态插件 基础WAM-V-->
 <robot xmlns:xacro="http://ros.org/wiki/xacro"
        name="WAM-V">
   <xacro:arg name="locked" default="false" />
+  <!--推进器配置-->
   <xacro:arg name="thruster_config" default="H" />
+  <!--相机配置-->
   <xacro:arg name="camera_enabled" default="false" />
+  <!--gps 配置-->
   <xacro:arg name="gps_enabled" default="false" />
+  <!--imu 配置-->
   <xacro:arg name="imu_enabled" default="false" />
+  <!--雷达 配置-->
   <xacro:arg name="lidar_enabled" default="false" />
+  <!--地面实况 -->
   <xacro:arg name="ground_truth_enabled" default="false" />
+  <!--vrx 传感器配置-->
   <xacro:arg name="vrx_sensors_enabled" default="false" />
+  <!-- 声波-->
   <xacro:arg name="pinger_enabled" default="false" />
+  <!-- 投球-->
   <xacro:arg name="ball_shooter_enabled" default="false" />
+
+  <!--名字空间-->
   <xacro:arg name="thruster_namespace" default="thrusters/"/>
   <xacro:arg name="camera_namespace" default="cameras/"/>  
   <xacro:arg name="sensor_namespace" default="sensors/"/>
@@ -19,6 +31,7 @@
   <xacro:arg name="shooter_namespace" default="shooters/"/>
   <!-- Note: this is only used for some sensors that do not correctly use the 
   robotNamespace parameter -->
+  <!--这仅用于某些未正确使用robotNamespace参数的传感器-->
   <xacro:arg name="namespace" default="wamv"/>    
   <xacro:property name="thruster_namespace" value="$(arg thruster_namespace)" scope="global" />
   <xacro:property name="camera_namespace" value="$(arg camera_namespace)" scope="global" />
@@ -28,14 +41,17 @@
   <xacro:property name="namespace" value="$(arg namespace)" scope="global" />      
   
   <!-- Sensor yaml file -->
+  <!--传感器yaml文件-->
   <xacro:arg name="yaml_component_generation" default="false"/>
   <xacro:arg name="component_xacro_file" default = ""/>
 
   <!-- Thruster yaml file -->
+  <!--推进器yaml文件-->
   <xacro:arg name="yaml_thruster_generation" default="false"/>
   <xacro:arg name="thruster_xacro_file" default = ""/>
 
   <!-- === The WAM-V platform === -->
+  <!-- WAM-V平台 -->
   <xacro:include filename="$(find wamv_gazebo)/urdf/wamv_gazebo.xacro"/>
   
   <!-- === Batteries === -->
